@@ -61,6 +61,8 @@ if ($result === false) {
 }
 // Gather books HTML for later
 $books = '';
+$file = 'templates/list.html';
+$tpl = file_get_contents($file);
 // Check if the query returned anything
 if (mysqli_num_rows($result) == 0) {
 	$books .= '<p class="alert">Sorry, we have no books to display.</p>';
@@ -69,16 +71,17 @@ if (mysqli_num_rows($result) == 0) {
 	while ($row = mysqli_fetch_assoc($result)) {
 
 		// We can now access the values in $row using the database column names as array keys
-		$booktitle = $row['title'];
-		$book_isbn = $row['isbn'];
-		$book_pubdate = $row['published'];
-		$book_price = $row['price'];
-		$book_authors = explode(',', $row['authors']);
-
+		$pass1 = str_replace('[+title+]', $row['title'], $tpl );
+		$pass2 = str_replace('[+isbn+]', $row['isbn'], $pass1);
+		$pass3 = str_replace('[+pub_date+]', $row['published'], $pass2);
+		$pass4 = str_replace('[+book_price+]', $row['price'], $pass3);
+		$final=   str_replace('[+book_authors+]',explode(',', $row['authors']), $pass4);
 		// Run the function and add the returned HTML to $books
-		$books .= bookToHtml($booktitle , $book_isbn, $book_pubdate, $book_price, $book_authors);
-
+	
+		$content .= $final;
+		
 	}
+	
 }
 
 // We are finished with the result set, so no point keeping it in memory
@@ -97,19 +100,21 @@ mysqli_close($link);
 $output = '<h1>Our Books</h1>';
 
 // Add the books to output
-$output .= $books;
+
 
 // Include the HTML header
 
 $title = 'PHP books';
 $heading = 'PHP books';
 
-$file = 'templates/page.php';
-$tpl = file_get_contents($file);
 
-$pass1 = str_replace('[+title+]', $title, $tpl);
+
+$file = 'templates/page1.html';
+$tpa = file_get_contents($file);
+
+$pass1 = str_replace('[+title+]', $title, $tpa);
 $pass2 = str_replace('[+heading+]', $heading, $pass1);
-$final = str_replace('[+content+]', $output, $pass2);
+$final = str_replace('[+content+]', $content, $pass2);
 
 echo $final;
 

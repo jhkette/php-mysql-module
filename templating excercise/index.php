@@ -91,7 +91,7 @@ $output .= $authors;
 $title = 'PHP Authors';
 $heading = 'PHP Authors';
 
-$file = 'templates/page.php';
+$file = 'templates/page.html';
 $tpl = file_get_contents($file);
 
 $pass1 = str_replace('[+title+]', $title, $tpl);
