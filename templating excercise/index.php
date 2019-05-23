@@ -3,29 +3,29 @@
  * Building Web Applications using MySQL and PHP (W1)
  * HOE - Application design
  */
- 
+
 // Include the application configuration settings
 require_once 'includes/config.inc.php';
 
-/** 
- * Establish a connection to the database and verify it was successful 
+/**
+ * Establish a connection to the database and verify it was successful
  * -----------------------------------------------------------------------------
  */
- 
+
 // We can use the config values defined in config.php as arguments
 $link = mysqli_connect(
-			$config['db_host'], 
-			$config['db_user'], 
-			$config['db_pass'], 
-			$config['db_name']);
-
+    $config['db_host'],
+    $config['db_user'],
+    $config['db_pass'],
+    $config['db_name']
+);
 
 // If the connection fails, we "exit" which stops all further processing by PHP
 if (mysqli_connect_errno()) {
     exit('Sorry, there has been an error. Please try again later.');
 }
 
-/** 
+/**
  * Execute a query and process the results
  * -----------------------------------------------------------------------------
  */
@@ -34,7 +34,7 @@ if (mysqli_connect_errno()) {
 $sql = "SELECT firstname,lastname FROM author";
 
 // Execute the query, assigning the result to $result
-$result = mysqli_query($link,$sql);
+$result = mysqli_query($link, $sql);
 
 // If the query failed, $result will be "false", so we test for this, and exit if it is
 if ($result === false) {
@@ -46,27 +46,26 @@ $authors = '';
 
 // Check if the query returned anything
 if (mysqli_num_rows($result) == 0) {
-	$authors .= '<p class="alert">Sorry, we have no authors to display.</p>';
+    $authors .= '<p class="alert">Sorry, we have no authors to display.</p>';
 } else {
+    // Start the html output
+    $authors .= '<ul>';
 
-	// Start the html output
-	$authors .= '<ul>';
+    // Loop through $result, converting each record from the result set to an array which we assign to $row
+    while ($row = mysqli_fetch_assoc($result)) {
+        // We can now access the values in $row using the database column names as array keys
 
-	// Loop through $result, converting each record from the result set to an array which we assign to $row
-	while ($row = mysqli_fetch_assoc($result)) {
-		
-		// We can now access the values in $row using the database column names as array keys
-		
-		// Before echoing to the page, we need to escape special characters
-		$htmlsafename = htmlentities($row['firstname'].' '.$row['lastname']);
-		
-		// Echo the escaped string to the page
-		$authors .= '<li>'.$htmlsafename.'</li>';
+        // Before echoing to the page, we need to escape special characters
+        $htmlsafename = htmlentities(
+            $row['firstname'] . ' ' . $row['lastname']
+        );
 
-	}
+        // Echo the escaped string to the page
+        $authors .= '<li>' . $htmlsafename . '</li>';
+    }
 
-	// Close the OL tag
-	$authors .= '</ul>';
+    // Close the OL tag
+    $authors .= '</ul>';
 }
 // We are finished with the result set, so no point keeping it in memory
 mysqli_free_result($result);
@@ -74,8 +73,8 @@ mysqli_free_result($result);
 // As we are doing no more database querying, we can also close the connection now.
 mysqli_close($link);
 
-/** 
- * Build the HTML page from include files and some content that was generated 
+/**
+ * Build the HTML page from include files and some content that was generated
  * above (i.e. $authors)
  * -----------------------------------------------------------------------------
  */
