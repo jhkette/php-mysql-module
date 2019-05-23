@@ -61,6 +61,7 @@ if ($result === false) {
 }
 // Gather books HTML for later
 $books = '';
+$content ='';
 $file = 'templates/list.html';
 $tpl = file_get_contents($file);
 // Check if the query returned anything
@@ -74,11 +75,7 @@ if (mysqli_num_rows($result) == 0) {
         $pass2 = str_replace('[+isbn+]', $row['isbn'], $pass1);
         $pass3 = str_replace('[+pub_date+]', $row['published'], $pass2);
         $pass4 = str_replace('[+book_price+]', $row['price'], $pass3);
-        $final = str_replace(
-            '[+book_authors+]',
-            explode(',', $row['authors']),
-            $pass4
-        );
+        $final = str_replace('[+book_authors+]', $row['authors'], $pass4);
         // Run the function and add the returned HTML to $books
 
         $content .= $final;
