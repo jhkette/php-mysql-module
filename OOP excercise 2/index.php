@@ -16,8 +16,8 @@ require_once './includes/database.php';
 <body>
    <?php 
 
-   $books = new displayData;
-   $books -> displayHtml();
+   $books = new db($config);
+   $books -> connect();
    
    ?>
 </body>

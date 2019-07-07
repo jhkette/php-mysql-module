@@ -1,7 +1,6 @@
 <?php
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'test2');
-
+$config['db_user'] = 'root';
+$config['db_pass'] = '';
+$config['db_name'] = 'test2';
+$config['db_host'] = 'localhost';
 ?>

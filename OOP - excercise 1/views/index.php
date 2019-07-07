@@ -1,6 +1,8 @@
 <?php 
 require('includes/config.php');
 require('includes/functions.php');
+require('includes/Database.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,6 +13,10 @@ require('includes/functions.php');
     <title>Document</title>
 </head>
 <body>
+
+<?php 
+// $db = new Database1($config);
+?>
     
 </body>
 </html>

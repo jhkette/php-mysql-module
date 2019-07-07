@@ -97,18 +97,21 @@ mysqli_close($link);
 // Add the heading to output
 $output = '<h1>Our Books</h1>';
 
-// Add the books to output
-
-// Include the HTML header
-
 $title = 'PHP books';
 $heading = 'PHP books';
 
 $file = 'templates/page1.html';
 $tpa = file_get_contents($file);
+$pass = '';
+if ($content == ''){
+	$pass = str_replace('[+message+]', 'No data to show', $tpa);
+}else{
+	$pass = str_replace('[+message+]', ' ', $tpa);
+}
 
-$pass1 = str_replace('[+title+]', $title, $tpa);
+$pass1 = str_replace('[+title+]', $title, $pass);
 $pass2 = str_replace('[+heading+]', $heading, $pass1);
+
 $final = str_replace('[+content+]', $content, $pass2);
 
 echo $final;

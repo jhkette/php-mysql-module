@@ -1,24 +1,16 @@
-<?php
+<?php 
 
-class db extends mysqli
+class Database
 {
-    public function __construct($host, $user, $pass, $db)
-    {
-        parent::__construct($host, $user, $pass, $db);
+private $config = array();
 
-        if (mysqli_connect_error()) {
-            die(
-                'Connect Error (' .
-                    mysqli_connect_errno() .
-                    ') ' .
-                    mysqli_connect_error()
-            );
-        } else {
-        }
-    }
+public function __construct($dbconfig){
+    $this->config = $dbconfig;
 }
 
+// this methid connect to database
 
 
 
+}
 ?>
