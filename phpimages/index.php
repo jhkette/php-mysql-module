@@ -20,7 +20,7 @@
         require_once 'includes/functions.inc.php';
 
         // Call img_resize function with suitable parameters
-        list($img, $error, $width, $height) = img_resize('racoon.jpg', $config['thumbs_dir'].'racoon_small.jpg', 400, 400, 10);
+        list($img, $error, $width, $height) = img_resize('racoon.jpg', $config['thumbs_dir'].'racoon_small.jpg', 200, 200, 10);
 	//$img2 = img_resize('racoon.jpg', $config['thumbs_dir'].'racoon_small.jpg', 200, 200);
 
 		// If resizing was successful display images, in HTML image tag
