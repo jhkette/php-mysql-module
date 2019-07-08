@@ -5,33 +5,47 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
     <body>
-
+    
         <!-- Part 1, add image tag for "circles.jpg" here -->
         <!--<img src="circle.jpg" alt="My saved pic" />-->
-        <img src="create.php" alt="My streamed pic" />
-
+        
+        
         <?php
         // Part 2, resizing images
-
+        
         // Require the config settings
         require_once 'includes/config.inc.php';
-
+        require_once 'create.php';
 		// Require the image manipulation function
         require_once 'includes/functions.inc.php';
 
         // Call img_resize function with suitable parameters
-        list($img, $error, $width, $height) = img_resize('racoon.jpg', $config['thumbs_dir'].'racoon_small.jpg', 200, 200, 10);
+        list($img, $error, $width, $height) = img_resize('racoon.jpg', $config['thumbs_dir'].'racoon_small.jpg', 200, 200);
 	//$img2 = img_resize('racoon.jpg', $config['thumbs_dir'].'racoon_small.jpg', 200, 200);
-
+		
 		// If resizing was successful display images, in HTML image tag
         if ($img) {
             echo "<img src='thumbs/racoon_small.jpg' title='racoon' width='".$width."' height='".$height."'/>";
-
+		
 		// Otherwise echo appropriate error
         } else {
             echo $error;
         }
 
+        list($img, $error, $width, $height) = img_resize('fountain.jpg', $config['thumbs_dir'].'fountain_small.jpg', 200, 200);
+        //$img2 = img_resize('racoon.jpg', $config['thumbs_dir'].'racoon_small.jpg', 200, 200);
+            
+            // If resizing was successful display images, in HTML image tag
+            if ($img) {
+                echo "<img src='thumbs/fountain_small.jpg' title='fountain' width='".$width."' height='".$height."'/>";
+            
+            // Otherwise echo appropriate error
+            } else {
+                echo $error;
+            }
+    
+
         ?>
+        <img src="thumbs/circle.png" alt="My" />
     </body>
 </html>

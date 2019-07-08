@@ -11,7 +11,7 @@
  * @param int $quality Quality of the thumb
  * @return bool, string $error[, int $new_width, int $new_height] 
  */
-function img_resize($in_img_file, $out_img_file, $req_width, $req_height, $quality) {
+function img_resize($in_img_file, $out_img_file, $req_width, $req_height, $quality=90) {
 
     // Get image file details
     list($width, $height, $type, $attr) = getimagesize($in_img_file);
